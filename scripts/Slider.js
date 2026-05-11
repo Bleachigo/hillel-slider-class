@@ -39,7 +39,7 @@ export class Slider {
       showArrows: true,
       showDots: true,
       interval: 3000,
-      maxWidth: '400px',
+      maxWidth: "400px",
       ...userSettings,
     };
 
@@ -57,17 +57,17 @@ export class Slider {
 
   #initStructure() {
     this.#sliderWrapper.style.maxWidth = this.#settings.maxWidth;
-    this.#sliderWrapper.style.position = 'relative';
-    this.#sliderWrapper.setAttribute('tabindex', '0');
+    this.#sliderWrapper.style.position = "relative";
+    this.#sliderWrapper.setAttribute("tabindex", "0");
 
-    this.#sliderContainer = document.createElement('div');
-    this.#sliderContainer.style.width = '100%';
-    this.#sliderContainer.style.overflow = 'hidden';
+    this.#sliderContainer = document.createElement("div");
+    this.#sliderContainer.style.width = "100%";
+    this.#sliderContainer.style.overflow = "hidden";
 
     const originalSlides = Array.from(this.#sliderWrapper.children);
     this.#totalSlides = originalSlides.length;
-    this.#track = document.createElement('div');
-    this.#track.style.display = 'flex';
+    this.#track = document.createElement("div");
+    this.#track.style.display = "flex";
 
     const firstClone = originalSlides[0].cloneNode(true);
     const lastClone = originalSlides[this.#totalSlides - 1].cloneNode(true);
@@ -75,8 +75,8 @@ export class Slider {
     this.#track.append(lastClone, ...originalSlides, firstClone);
     this.#sliderContainer.append(this.#track);
     Array.from(this.#track.children).forEach((slide) => {
-      slide.style.flex = '0 0 100%';
-      slide.style.width = '100%';
+      slide.style.flex = "0 0 100%";
+      slide.style.width = "100%";
     });
 
     this.#sliderWrapper.append(this.#sliderContainer);
@@ -84,8 +84,8 @@ export class Slider {
     this.#slideWidth = this.#sliderContainer.offsetWidth;
 
     if (this.#areNavArrows) {
-      this.#nextButton = this.#createNavigationButtons('next-slide', '>');
-      this.#prevButton = this.#createNavigationButtons('prev-slide', '<');
+      this.#nextButton = this.#createNavigationButtons("next-slide", ">");
+      this.#prevButton = this.#createNavigationButtons("prev-slide", "<");
     }
 
     if (this.#areNavDots) this.#createDots();
@@ -95,9 +95,9 @@ export class Slider {
   }
 
   #createNavigationButtons(className, text) {
-    const button = document.createElement('button');
-    button.setAttribute('type', 'button');
-    button.classList.add('slider-btn', className);
+    const button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.classList.add("slider-btn", className);
     button.textContent = text;
 
     this.#sliderWrapper.append(button);
@@ -105,16 +105,16 @@ export class Slider {
   }
 
   #createDots() {
-    this.#dotsContainer = document.createElement('ul');
-    this.#dotsContainer.classList.add('slider-bullets');
+    this.#dotsContainer = document.createElement("ul");
+    this.#dotsContainer.classList.add("slider-bullets");
 
     for (let i = 0; i < this.#totalSlides; i++) {
-      const bullet = document.createElement('li');
-      bullet.classList.add('slider-bullets__bullet');
+      const bullet = document.createElement("li");
+      bullet.classList.add("slider-bullets__bullet");
 
       bullet.dataset.index = i + 1;
 
-      if (i === 0) bullet.classList.add('active');
+      if (i === 0) bullet.classList.add("active");
 
       this.#dotsContainer.append(bullet);
     }
@@ -125,7 +125,9 @@ export class Slider {
   #updateSlidePosition(withAnimation = true) {
     const width = this.#sliderContainer.offsetWidth;
 
-    this.#track.style.transition = withAnimation ? 'transform 0.5s ease' : 'none';
+    this.#track.style.transition = withAnimation
+      ? "transform 0.5s ease"
+      : "none";
     this.#track.style.transform = `translateX(-${this.#currentSlideIndex * width}px)`;
   }
 
@@ -136,13 +138,13 @@ export class Slider {
     if (dotIndex === this.#slides.length - 1) dotIndex = 1;
     if (dotIndex === 0) dotIndex = this.#totalSlides;
 
-    this.#dotsContainer.querySelector('.active')?.classList.remove('active');
+    this.#dotsContainer.querySelector(".active")?.classList.remove("active");
 
     const currentDot = this.#dotsContainer.querySelector(
       `.slider-bullets__bullet[data-index="${dotIndex}"]`,
     );
 
-    currentDot?.classList.add('active');
+    currentDot?.classList.add("active");
   }
 
   #moveSlide(direction) {
@@ -150,8 +152,8 @@ export class Slider {
     this.#isTransitioning = true;
     this.#currentSlideIndex += direction;
     this.#updateSlidePosition();
-    this.#resetTimer();
     this.#updateDots();
+    this.#resetTimer();
   }
 
   #nextSlide() {
@@ -170,7 +172,7 @@ export class Slider {
     this.#startX = event.clientX;
 
     this.#startTranslate = -this.#currentSlideIndex * this.#slideWidth;
-    this.#track.style.transition = 'none';
+    this.#track.style.transition = "none";
   }
 
   #drag(event) {
@@ -199,7 +201,7 @@ export class Slider {
   }
 
   #setupEvents() {
-    this.#track.addEventListener('transitionend', () => {
+    this.#track.addEventListener("transitionend", () => {
       this.#isTransitioning = false;
 
       if (this.#currentSlideIndex === this.#slides.length - 1) {
@@ -215,18 +217,22 @@ export class Slider {
       this.#updateDots();
     });
 
-    this.#nextButton?.addEventListener('click', () => this.#nextSlide());
-    this.#prevButton?.addEventListener('click', () => this.#prevSlide());
+    this.#nextButton?.addEventListener("click", () => this.#nextSlide());
+    this.#prevButton?.addEventListener("click", () => this.#prevSlide());
 
-    this.#sliderWrapper.addEventListener('mouseenter', () => this.#stopAutoPlay());
+    this.#sliderWrapper.addEventListener("mouseenter", () =>
+      this.#stopAutoPlay(),
+    );
     if (this.#shouldAutoPlay) {
-      this.#sliderWrapper.addEventListener('mouseleave', () => this.startAutoPlay());
+      this.#sliderWrapper.addEventListener("mouseleave", () =>
+        this.startAutoPlay(),
+      );
     }
 
     if (this.#dotsContainer) {
-      this.#dotsContainer.addEventListener('click', (event) => {
+      this.#dotsContainer.addEventListener("click", (event) => {
         if (this.#isTransitioning) return;
-        const bullet = event.target.closest('.slider-bullets__bullet');
+        const bullet = event.target.closest(".slider-bullets__bullet");
         if (!bullet) return;
 
         const targetIndex = parseInt(bullet.dataset.index);
@@ -236,18 +242,18 @@ export class Slider {
       });
     }
 
-    this.#track.addEventListener('pointerdown', (e) => this.#startDrag(e));
-    window.addEventListener('pointermove', (e) => this.#drag(e));
-    window.addEventListener('pointerup', (e) => this.#endDrag(e));
-    window.addEventListener('pointerleave', (e) => this.#endDrag(e));
-    this.#track.addEventListener('dragstart', (e) => e.preventDefault());
+    this.#track.addEventListener("pointerdown", (e) => this.#startDrag(e));
+    window.addEventListener("pointermove", (e) => this.#drag(e));
+    window.addEventListener("pointerup", (e) => this.#endDrag(e));
+    window.addEventListener("pointerleave", (e) => this.#endDrag(e));
+    this.#track.addEventListener("dragstart", (e) => e.preventDefault());
 
-    this.#sliderWrapper.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') this.#prevSlide();
-      if (e.key === 'ArrowRight') this.#nextSlide();
+    this.#sliderWrapper.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") this.#prevSlide();
+      if (e.key === "ArrowRight") this.#nextSlide();
     });
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.#updateSlidePosition();
     });
   }
@@ -255,7 +261,10 @@ export class Slider {
   startAutoPlay() {
     this.#stopAutoPlay();
 
-    this.#intervalId = setInterval(() => this.#nextSlide(), this.#autoPlayInterval);
+    this.#intervalId = setInterval(
+      () => this.#nextSlide(),
+      this.#autoPlayInterval,
+    );
   }
 
   #resetTimer() {
