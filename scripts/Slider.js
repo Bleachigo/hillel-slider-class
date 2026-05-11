@@ -78,6 +78,7 @@ export class Slider {
       slide.style.flex = "0 0 100%";
       slide.style.width = "100%";
     });
+    this.#track.style.touchAction = "pan-y";
 
     this.#sliderWrapper.append(this.#sliderContainer);
 
