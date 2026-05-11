@@ -239,6 +239,7 @@ export class Slider {
         this.#currentSlideIndex = targetIndex;
         this.#updateSlidePosition();
         this.#updateDots();
+        this.#resetTimer();
       });
     }
 
