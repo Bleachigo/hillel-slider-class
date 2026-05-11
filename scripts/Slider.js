@@ -163,7 +163,9 @@ export class Slider {
 
     this.#startX = event.clientX;
 
-    this.#startTranslate = -this.#currentSlideIndex * this.#slideWidth;
+    const width = this.#sliderContainer.offsetWidth;
+
+    this.#startTranslate = -this.#currentSlideIndex * width;
     this.#track.style.transition = "none";
   }
 
