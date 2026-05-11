@@ -6,18 +6,28 @@ To start use this slider you must import
 class to your main JS file with this instruction:  
 `import { Slider } from 'your-path/Slider.js';`
 
-After that you have to initialize slider with this instruction:
+After that you have to initialize slider with this instruction:  
 `const yourSlider = new Slider('#slider-wrapper)`.
 
 Pay attention, that instruction above initiate slider  
 with all navigation elements e.g. arrows, dots, autoPlay on.
 
 If you require to turn off any of these elements you must  
-pass an settings object. Full list of settings given below:  
-`const yourSlider = new Slider('#slider-wrapper, {  
-  maxWidth: '500px',  -- 400px is default value  
-  autoPlay: false,    -- true is default value  
-  interval: 3000,     -- 3000 (3 seconds) is default  
-  showDots: false,    -- true is default value  
-  showArrows: false,  -- true is default value  
-})`.
+pass a settings object. Full list of settings given below:  
+`const yourSlider = new Slider('#slider-wrapper, {`  
+ &emsp;`maxWidth: '500px',`&emsp;-- 400px is default value  
+ &emsp;`autoPlay: false,`&emsp;&emsp;-- true is default value  
+ &emsp;`interval: 3000,`&emsp;&emsp;&ensp;-- 3000 (3 seconds) is default  
+ &emsp;`showDots: false,`&emsp;&emsp;-- true is default value  
+ &emsp;`showArrows: false,`&ensp;&ensp;-- true is default value  
+`})`.
+
+## CSS classes and id to style
+
+`#slider-wrapper`  
+`.slider-btn`  
+`.next-slide`  
+`.prev-slide`  
+`.slider-bullets`  
+`.slider-bullets__bullet`  
+`.slider-bullets__bullet.active`
