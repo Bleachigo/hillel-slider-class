@@ -1,12 +1,3 @@
-// Create a slider with the following features:
-/*
- -- Підтримку тач-жестів для навігації слайдами на мобільних пристроях та аналогічні дії мишею на десктопних пристроях, що дозволяє
- користувачам легко перегортати слайди, використовуючи свайпи на тачскрінах або перетягування мишею.
- -- When I swiping slides (at the first-last clone) there is weird behavior e.g. they move over the border
- */
-
-// To implement settings object!!!
-
 export class Slider {
   #sliderWrapper;
   #wrapperWidth;

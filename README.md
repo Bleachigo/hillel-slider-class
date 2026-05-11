@@ -1,6 +1,6 @@
 # This is the slider/carousel project
 
-## User guide:
+## User guide
 
 To start use this slider you must import  
 class to your main JS file with this instruction:  
