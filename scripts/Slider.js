@@ -7,7 +7,7 @@ export function Slider(selector, userSettings = {}) {
     showArrows: true,
     showDots: true,
     interval: 3000,
-    maxWidth: "400px",
+    maxWidth: '400px',
     ...userSettings,
   };
 
@@ -34,7 +34,40 @@ export function Slider(selector, userSettings = {}) {
 
   function initStructure() {
     sliderWrapper.style.maxWidth = settings.maxWidth;
-    sliderWrapper.style.position = "relative";
-    sliderWrapper.style.setAttribute("tabindex", "0");
+    sliderWrapper.style.position = 'relative';
+    sliderWrapper.style.setAttribute('tabindex', '0');
+
+    sliderContainer = document.createElement('div');
+    sliderContainer.style.width = '100%';
+    sliderContainer.style.overflow = 'hidden';
+
+    const originalSlides = Array.from(sliderWrapper.children);
+    totalSlides = originalSlides.length;
+    track = document.createElement('div');
+    track.style.display = 'flex';
+
+    const firstClone = originalSlides[0].cloneNode(true);
+    const lastClone = originalSlides[totalSlides - 1].cloneNode(true);
+
+    track.append(lastClone, ...originalSlides, firstClone);
+    sliderContainer.append(track);
+    Array.from(track.children).forEach((slide) => {
+      slide.style.flex = '0 0 100%';
+      slide.style.width = '100%';
+    });
+
+    sliderWrapper.append(sliderContainer);
+
+    slideWidth = sliderContainer.offsetWidth;
+
+    if (areNavArrows) {
+      nextButton = createNavigationButtons('next-slide', '>');
+      prevButton = createNavigationButtons('prev-slide', '<');
+    }
+
+    if (areNavDots) createDots();
+
+    slides = track.children;
+    updateSlidePosition(false);
   }
 }
