@@ -43,6 +43,7 @@ export function Slider(selector, userSettings = {}) {
     totalSlides = originalSlides.length;
     track = document.createElement('div');
     track.style.display = 'flex';
+    track.style.touchAction = 'pan-y';
 
     const firstClone = originalSlides[0].cloneNode(true);
     const lastClone = originalSlides[totalSlides - 1].cloneNode(true);
